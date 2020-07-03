@@ -20,17 +20,20 @@ Note:  If you encounter any issues or see errors in terraform init, it could be 
 
 
 
-Sample log of terraform init, terraform apply has been uploaded. Please refer the same to  compare your results. Once you see the cluster deployed, you will need to add the new cluster to the kubeconfig file. Give the below command to do the same. By doing this you are connected to your cluster that you  just deploye.
+Sample log of terraform init, terraform apply has been uploaded. Please refer the same to  compare your results. Once you see the cluster deployed, you will need to add the new cluster to the kubeconfig file. Give the below command to do the same. By doing this you are connected to your cluster that you  just deployed.
 
 
 aws eks --region <Region where eks is deployed> update-kubeconfig --name <eks cluster name>
 
 ## Example:
- ~/workspace/terraform-aws-eks2: aws eks --region ap-south-1 update-kubeconfig --name eks-cluster
+ /workspace/terraform-aws-eks2: aws eks --region ap-south-1 update-kubeconfig --name eks-cluster 
+
+ Gives output as below -
+
 Added new context arn:aws:eks:ap-south-1:392884643555:cluster/eks-cluster to /Users/sreekar/.kube/config
 
 
-You will not be able to query the eks cluster using kubectl. Go ahead and try few get commands of kubectl(Log file also has two commands )
+You will now be able to query the eks cluster using kubectl. Go ahead and try few get commands of kubectl(Log file also has two commands )
 
 ## Inputs
 
