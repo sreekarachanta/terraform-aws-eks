@@ -1,0 +1,579 @@
+ 
+ ### TERRAFORM INIT LOG
+
+ ~/workspace/terraform-aws-eks: terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.aws: version = "~> 2.69"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+
+### TERRAFORM APPLY LOG
+
+ ~/workspace/terraform-aws-eks2: terraform apply
+provider.aws.region
+  The region where AWS operations will take place. Examples
+  are us-east-1, us-west-2, etc.
+
+  Enter a value: ap-south-1
+
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_eks_cluster.eks_cluster will be created
+  + resource "aws_eks_cluster" "eks_cluster" {
+      + arn                   = (known after apply)
+      + certificate_authority = (known after apply)
+      + created_at            = (known after apply)
+      + endpoint              = (known after apply)
+      + id                    = (known after apply)
+      + identity              = (known after apply)
+      + name                  = "eks-cluster"
+      + platform_version      = (known after apply)
+      + role_arn              = (known after apply)
+      + status                = (known after apply)
+      + tags                  = {
+          + "test-esk" = "test"
+        }
+      + version               = "1.15"
+
+      + vpc_config {
+          + cluster_security_group_id = (known after apply)
+          + endpoint_private_access   = false
+          + endpoint_public_access    = true
+          + public_access_cidrs       = (known after apply)
+          + subnet_ids                = [
+              + "subnet-1905ae55",
+              + "subnet-392cc142",
+            ]
+          + vpc_id                    = (known after apply)
+        }
+    }
+
+  # aws_eks_node_group.node_group will be created
+  + resource "aws_eks_node_group" "node_group" {
+      + ami_type        = (known after apply)
+      + arn             = (known after apply)
+      + cluster_name    = (known after apply)
+      + disk_size       = 40
+      + id              = (known after apply)
+      + instance_types  = [
+          + "m5a.xlarge",
+        ]
+      + node_group_name = "eks-node-group"
+      + node_role_arn   = (known after apply)
+      + release_version = (known after apply)
+      + resources       = (known after apply)
+      + status          = (known after apply)
+      + subnet_ids      = [
+          + "subnet-1905ae55",
+          + "subnet-392cc142",
+        ]
+      + version         = (known after apply)
+
+      + scaling_config {
+          + desired_size = 3
+          + max_size     = 5
+          + min_size     = 2
+        }
+    }
+
+  # aws_iam_role.cluster_role will be created
+  + resource "aws_iam_role" "cluster_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "eks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "eks-cluster"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # aws_iam_role.node_group_role will be created
+  + resource "aws_iam_role" "node_group_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "eks-node-group"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy will be created
+  + resource "aws_iam_role_policy_attachment" "eks_AmazonEKSClusterPolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+      + role       = "eks-cluster"
+    }
+
+  # aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy will be created
+  + resource "aws_iam_role_policy_attachment" "eks_AmazonEKSServicePolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+      + role       = "eks-cluster"
+    }
+
+  # aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly will be created
+  + resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOnly" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+      + role       = "eks-node-group"
+    }
+
+  # aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy will be created
+  + resource "aws_iam_role_policy_attachment" "node_AmazonEKSWorkerNodePolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+      + role       = "eks-node-group"
+    }
+
+  # aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy will be created
+  + resource "aws_iam_role_policy_attachment" "node_AmazonEKS_CNI_Policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+      + role       = "eks-node-group"
+    }
+
+Plan: 9 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_iam_role.node_group_role: Creating...
+aws_iam_role.cluster_role: Creating...
+aws_iam_role.cluster_role: Creation complete after 2s [id=eks-cluster]
+aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Creating...
+aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Creating...
+aws_iam_role.node_group_role: Creation complete after 2s [id=eks-node-group]
+aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy: Creating...
+aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly: Creating...
+aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy: Creating...
+aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly: Creation complete after 2s [id=eks-node-group-20200703205341154300000002]
+aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy: Creation complete after 2s [id=eks-node-group-20200703205341149100000001]
+aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy: Creation complete after 2s [id=eks-node-group-20200703205341164100000003]
+aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Creation complete after 2s [id=eks-cluster-20200703205341179900000004]
+aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Creation complete after 2s [id=eks-cluster-20200703205341198500000005]
+aws_eks_cluster.eks_cluster: Creating...
+aws_eks_cluster.eks_cluster: Still creating... [10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [1m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [1m10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [1m20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [1m30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [1m40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [1m50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [2m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [2m10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [2m20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [2m30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [2m40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [2m50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [3m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [3m10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [3m20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [3m30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [3m40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [3m50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [4m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [4m10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [4m20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [4m30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [4m40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [4m50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [5m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [5m10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [5m20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [5m30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [5m40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [5m50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [6m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [6m10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [6m20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [6m30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [6m40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [6m50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [7m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [7m10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [7m20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [7m30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [7m40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [7m50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [8m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [8m10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [8m20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [8m30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [8m40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [8m50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [9m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [9m10s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [9m20s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [9m30s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [9m40s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [9m50s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [10m0s elapsed]
+aws_eks_cluster.eks_cluster: Still creating... [10m10s elapsed]
+aws_eks_cluster.eks_cluster: Creation complete after 10m19s [id=eks-cluster]
+aws_eks_node_group.node_group: Creating...
+aws_eks_node_group.node_group: Still creating... [10s elapsed]
+aws_eks_node_group.node_group: Still creating... [20s elapsed]
+aws_eks_node_group.node_group: Still creating... [30s elapsed]
+aws_eks_node_group.node_group: Still creating... [40s elapsed]
+aws_eks_node_group.node_group: Still creating... [50s elapsed]
+aws_eks_node_group.node_group: Still creating... [1m0s elapsed]
+aws_eks_node_group.node_group: Still creating... [1m10s elapsed]
+aws_eks_node_group.node_group: Still creating... [1m20s elapsed]
+aws_eks_node_group.node_group: Still creating... [1m30s elapsed]
+aws_eks_node_group.node_group: Still creating... [1m40s elapsed]
+aws_eks_node_group.node_group: Still creating... [1m50s elapsed]
+aws_eks_node_group.node_group: Still creating... [2m0s elapsed]
+aws_eks_node_group.node_group: Creation complete after 2m9s [id=eks-cluster:eks-node-group]
+
+Apply complete! Resources: 9 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+endpoint = https://63945C82C273BD559244201523BE89B9.yl4.ap-south-1.eks.amazonaws.com
+kubeconfig-certificate-authority-data = LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJd01EY3dNekl4TURFeE0xb1hEVE13TURjd01USXhNREV4TTFvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTFkzCk1WVFk0VjFPN29pYkJOTXFxN0ZJNi9TUXEzSzVIWThTbUFwdHVqR3YyN2c3NVFwdVBUZXpwSTdXdEdVTHlwencKQjNUMWdkOEZxR0dzaC9ncFZiT3ROVG0weExmb2FTdkVheVdDdkR2SUdPaTNGVStLZDNCTlRNZWR4dytGQlViTQpOS2NubGI3ZDZpTENwaHhLRmdMVTFCK0wwYmNFZXJmMG02dFB0R0h6QmhsNEplUkYzL2NFd3pGUG1mSUw5MDRPCkFSMGZQVThjMDhONm9iWExaRm15OG9CZlRmTnhPd0xTWXdtKzdTVlpjalg5MVV6VitESEVrS3cyRDkyeUYvR2YKQnVQeHlPejdSNjJmVjhxRHpGY2cyVUZsNjNZbTA4eExkdnRNS1g1bEt2NTI0Y3ZUYkRsR2cyMlBseGhlVXRKagoxNXJ5ZW8yM0RWVlhTeXZvdzZVQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFHUFV4ZGQzMjJRUjd5QmFjUWExUDNjandPRkwKWGF4MXlNZ1NMQU5hZ2ZqZFJ0MThUekRFeTduV202T0MrZE44cnovc3RadXFaalFTQmowaVJNMXFhcEx1VjJDego4QUtPS1N5M1pHVmpDN2l3NzZIbnBhVEIxTmVxL3RFMk4wZjZtUFUzMSswWXpCS245dVNQTHJKQXg4Y2I3YWhECkFrQ0djQXdrZDhQOWRaQU5RNzdWWEZGaHRKcDRTWHdZbUpYL2hXbWc3Uk00b01tWEVHekVicC9XR1lqUnU1Y2wKWUxKZW5CL25DMGtFT0N6NnpPREViM2lwYUtJdWVPUXl5UEttWGptT3FUQ1JBUi84emtDOHREaWFNZWl3NHVFSAo3UmZYMGNROHNLekdDaER4d0JOTjE4TWZXeXE0UkFybndoS0xMa2NGTS9VaXFBQ3pyeGlKVjFmQzJydz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+
+
+### LOG for adding the cluster details in the kubeconfig file.
+
+ ~/workspace/terraform-aws-eks: aws eks --region ap-south-1 update-kubeconfig --name eks-cluster
+Added new context arn:aws:eks:ap-south-1:392884643555:cluster/eks-cluster to /Users/sreekar/.kube/config
+ ~/workspace/terraform-aws-eks2 
+ ~/workspace/terraform-aws-eks2 
+ ~/workspace/terraform-aws-eks2 
+
+ ### KUBECTL commands
+
+ ~/workspace/terraform-aws-eks: kubectl get nodes
+NAME                                           STATUS   ROLES    AGE    VERSION
+ip-172-31-12-120.ap-south-1.compute.internal   Ready    <none>   112s   v1.15.11-eks-14f01f
+ip-172-31-37-37.ap-south-1.compute.internal    Ready    <none>   112s   v1.15.11-eks-14f01f
+ip-172-31-39-28.ap-south-1.compute.internal    Ready    <none>   112s   v1.15.11-eks-14f01f
+ ~/workspace/terraform-aws-eks: kubectl get pods -n kube-system
+NAME                     READY   STATUS    RESTARTS   AGE
+aws-node-688g8           1/1     Running   0          2m1s
+aws-node-cq2bj           1/1     Running   0          2m1s
+aws-node-zl922           1/1     Running   0          2m1s
+coredns-f59765cb-5f8v9   1/1     Running   0          5m7s
+coredns-f59765cb-jqk7v   1/1     Running   0          5m7s
+kube-proxy-g24dz         1/1     Running   0          2m1s
+kube-proxy-p82hb         1/1     Running   0          2m1s
+kube-proxy-pkvsc         1/1     Running   0          2m1s
+ ~/workspace/terraform-aws-eks:
+
+
+### Destroy LOG
+
+  ~/workspace/terraform-aws-eks:  terraform destroy
+provider.aws.region
+  The region where AWS operations will take place. Examples
+  are us-east-1, us-west-2, etc.
+
+  Enter a value: ap-south-1
+
+aws_iam_role.node_group_role: Refreshing state... [id=eks-node-group]
+aws_iam_role.cluster_role: Refreshing state... [id=eks-cluster]
+aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy: Refreshing state... [id=eks-node-group-20200703205341149100000001]
+aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly: Refreshing state... [id=eks-node-group-20200703205341154300000002]
+aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy: Refreshing state... [id=eks-node-group-20200703205341164100000003]
+aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Refreshing state... [id=eks-cluster-20200703205341198500000005]
+aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Refreshing state... [id=eks-cluster-20200703205341179900000004]
+aws_eks_cluster.eks_cluster: Refreshing state... [id=eks-cluster]
+aws_eks_node_group.node_group: Refreshing state... [id=eks-cluster:eks-node-group]
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_eks_cluster.eks_cluster will be destroyed
+  - resource "aws_eks_cluster" "eks_cluster" {
+      - arn                       = "arn:aws:eks:ap-south-1:392884643555:cluster/eks-cluster" -> null
+      - certificate_authority     = [
+          - {
+              - data = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJd01EY3dNekl4TURFeE0xb1hEVE13TURjd01USXhNREV4TTFvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTFkzCk1WVFk0VjFPN29pYkJOTXFxN0ZJNi9TUXEzSzVIWThTbUFwdHVqR3YyN2c3NVFwdVBUZXpwSTdXdEdVTHlwencKQjNUMWdkOEZxR0dzaC9ncFZiT3ROVG0weExmb2FTdkVheVdDdkR2SUdPaTNGVStLZDNCTlRNZWR4dytGQlViTQpOS2NubGI3ZDZpTENwaHhLRmdMVTFCK0wwYmNFZXJmMG02dFB0R0h6QmhsNEplUkYzL2NFd3pGUG1mSUw5MDRPCkFSMGZQVThjMDhONm9iWExaRm15OG9CZlRmTnhPd0xTWXdtKzdTVlpjalg5MVV6VitESEVrS3cyRDkyeUYvR2YKQnVQeHlPejdSNjJmVjhxRHpGY2cyVUZsNjNZbTA4eExkdnRNS1g1bEt2NTI0Y3ZUYkRsR2cyMlBseGhlVXRKagoxNXJ5ZW8yM0RWVlhTeXZvdzZVQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFHUFV4ZGQzMjJRUjd5QmFjUWExUDNjandPRkwKWGF4MXlNZ1NMQU5hZ2ZqZFJ0MThUekRFeTduV202T0MrZE44cnovc3RadXFaalFTQmowaVJNMXFhcEx1VjJDego4QUtPS1N5M1pHVmpDN2l3NzZIbnBhVEIxTmVxL3RFMk4wZjZtUFUzMSswWXpCS245dVNQTHJKQXg4Y2I3YWhECkFrQ0djQXdrZDhQOWRaQU5RNzdWWEZGaHRKcDRTWHdZbUpYL2hXbWc3Uk00b01tWEVHekVicC9XR1lqUnU1Y2wKWUxKZW5CL25DMGtFT0N6NnpPREViM2lwYUtJdWVPUXl5UEttWGptT3FUQ1JBUi84emtDOHREaWFNZWl3NHVFSAo3UmZYMGNROHNLekdDaER4d0JOTjE4TWZXeXE0UkFybndoS0xMa2NGTS9VaXFBQ3pyeGlKVjFmQzJydz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+            },
+        ] -> null
+      - created_at                = "2020-07-03 20:53:43 +0000 UTC" -> null
+      - enabled_cluster_log_types = [] -> null
+      - endpoint                  = "https://63945C82C273BD559244201523BE89B9.yl4.ap-south-1.eks.amazonaws.com" -> null
+      - id                        = "eks-cluster" -> null
+      - identity                  = [
+          - {
+              - oidc = [
+                  - {
+                      - issuer = "https://oidc.eks.ap-south-1.amazonaws.com/id/63945C82C273BD559244201523BE89B9"
+                    },
+                ]
+            },
+        ] -> null
+      - name                      = "eks-cluster" -> null
+      - platform_version          = "eks.2" -> null
+      - role_arn                  = "arn:aws:iam::392884643555:role/eks-cluster" -> null
+      - status                    = "ACTIVE" -> null
+      - tags                      = {
+          - "test-esk" = "test"
+        } -> null
+      - version                   = "1.15" -> null
+
+      - vpc_config {
+          - cluster_security_group_id = "sg-0b7ea3c7b2880a92a" -> null
+          - endpoint_private_access   = false -> null
+          - endpoint_public_access    = true -> null
+          - public_access_cidrs       = [
+              - "0.0.0.0/0",
+            ] -> null
+          - security_group_ids        = [] -> null
+          - subnet_ids                = [
+              - "subnet-1905ae55",
+              - "subnet-392cc142",
+            ] -> null
+          - vpc_id                    = "vpc-3a095452" -> null
+        }
+    }
+
+  # aws_eks_node_group.node_group will be destroyed
+  - resource "aws_eks_node_group" "node_group" {
+      - ami_type        = "AL2_x86_64" -> null
+      - arn             = "arn:aws:eks:ap-south-1:392884643555:nodegroup/eks-cluster/eks-node-group/82b98b3f-2301-ee9b-0696-942b353266de" -> null
+      - cluster_name    = "eks-cluster" -> null
+      - disk_size       = 40 -> null
+      - id              = "eks-cluster:eks-node-group" -> null
+      - instance_types  = [
+          - "m5a.xlarge",
+        ] -> null
+      - labels          = {} -> null
+      - node_group_name = "eks-node-group" -> null
+      - node_role_arn   = "arn:aws:iam::392884643555:role/eks-node-group" -> null
+      - release_version = "1.15.11-20200618" -> null
+      - resources       = [
+          - {
+              - autoscaling_groups              = [
+                  - {
+                      - name = "eks-82b98b3f-2301-ee9b-0696-942b353266de"
+                    },
+                ]
+              - remote_access_security_group_id = ""
+            },
+        ] -> null
+      - status          = "ACTIVE" -> null
+      - subnet_ids      = [
+          - "subnet-1905ae55",
+          - "subnet-392cc142",
+        ] -> null
+      - tags            = {} -> null
+      - version         = "1.15" -> null
+
+      - scaling_config {
+          - desired_size = 3 -> null
+          - max_size     = 5 -> null
+          - min_size     = 2 -> null
+        }
+    }
+
+  # aws_iam_role.cluster_role will be destroyed
+  - resource "aws_iam_role" "cluster_role" {
+      - arn                   = "arn:aws:iam::392884643555:role/eks-cluster" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRole"
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "eks.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2020-07-03T20:53:38Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "eks-cluster" -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "eks-cluster" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - unique_id             = "AROAVW6N743R7MA3PZN3W" -> null
+    }
+
+  # aws_iam_role.node_group_role will be destroyed
+  - resource "aws_iam_role" "node_group_role" {
+      - arn                   = "arn:aws:iam::392884643555:role/eks-node-group" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRole"
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2020-07-03T20:53:38Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "eks-node-group" -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "eks-node-group" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - unique_id             = "AROAVW6N743R5UN74SPQP" -> null
+    }
+
+  # aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy will be destroyed
+  - resource "aws_iam_role_policy_attachment" "eks_AmazonEKSClusterPolicy" {
+      - id         = "eks-cluster-20200703205341198500000005" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" -> null
+      - role       = "eks-cluster" -> null
+    }
+
+  # aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy will be destroyed
+  - resource "aws_iam_role_policy_attachment" "eks_AmazonEKSServicePolicy" {
+      - id         = "eks-cluster-20200703205341179900000004" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy" -> null
+      - role       = "eks-cluster" -> null
+    }
+
+  # aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly will be destroyed
+  - resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOnly" {
+      - id         = "eks-node-group-20200703205341154300000002" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
+      - role       = "eks-node-group" -> null
+    }
+
+  # aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy will be destroyed
+  - resource "aws_iam_role_policy_attachment" "node_AmazonEKSWorkerNodePolicy" {
+      - id         = "eks-node-group-20200703205341149100000001" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
+      - role       = "eks-node-group" -> null
+    }
+
+  # aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy will be destroyed
+  - resource "aws_iam_role_policy_attachment" "node_AmazonEKS_CNI_Policy" {
+      - id         = "eks-node-group-20200703205341164100000003" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
+      - role       = "eks-node-group" -> null
+    }
+
+Plan: 0 to add, 0 to change, 9 to destroy.
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+aws_eks_node_group.node_group: Destroying... [id=eks-cluster:eks-node-group]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 10s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 20s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 30s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 40s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 50s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 1m0s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 1m10s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 1m20s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 1m30s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 1m40s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 1m50s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 2m0s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 2m10s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 2m20s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 2m30s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 2m40s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 2m50s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 3m0s elapsed]
+aws_eks_node_group.node_group: Still destroying... [id=eks-cluster:eks-node-group, 3m10s elapsed]
+aws_eks_node_group.node_group: Destruction complete after 3m13s
+aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy: Destroying... [id=eks-node-group-20200703205341164100000003]
+aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy: Destroying... [id=eks-node-group-20200703205341149100000001]
+aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly: Destroying... [id=eks-node-group-20200703205341154300000002]
+aws_eks_cluster.eks_cluster: Destroying... [id=eks-cluster]
+aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy: Destruction complete after 1s
+aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly: Destruction complete after 1s
+aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy: Destruction complete after 1s
+aws_iam_role.node_group_role: Destroying... [id=eks-node-group]
+aws_iam_role.node_group_role: Destruction complete after 2s
+aws_eks_cluster.eks_cluster: Still destroying... [id=eks-cluster, 10s elapsed]
+aws_eks_cluster.eks_cluster: Still destroying... [id=eks-cluster, 20s elapsed]
+aws_eks_cluster.eks_cluster: Still destroying... [id=eks-cluster, 30s elapsed]
+aws_eks_cluster.eks_cluster: Still destroying... [id=eks-cluster, 40s elapsed]
+aws_eks_cluster.eks_cluster: Destruction complete after 44s
+aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Destroying... [id=eks-cluster-20200703205341179900000004]
+aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Destroying... [id=eks-cluster-20200703205341198500000005]
+aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Destruction complete after 2s
+aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Destruction complete after 2s
+aws_iam_role.cluster_role: Destroying... [id=eks-cluster]
+aws_iam_role.cluster_role: Destruction complete after 2s
+
+Destroy complete! Resources: 9 destroyed.
+ ~/workspace/terraform-aws-eks:
+ 
