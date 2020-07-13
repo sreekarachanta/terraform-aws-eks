@@ -2,7 +2,7 @@
 
 
 - This terraform module will create a EKS Cluster.
-- This projecct is a part of opstree's ot-aws initiative for terraform modules.
+- This project is a part of opstree's ot-aws initiative for terraform modules.
 
 ## Usage
 
@@ -30,7 +30,7 @@ aws eks --region <Region where eks is deployed> update-kubeconfig --name <eks cl
 
  Gives output as below -
 
-Added new context arn:aws:eks:ap-south-1:392884643555:cluster/eks-cluster to /Users/sreekar/.kube/config
+Added new context arn:aws:eks:ap-south-1:<xxxx>:cluster/eks-cluster to /Users/sreekar/.kube/config
 
 
 You will now be able to query the eks cluster using kubectl. Go ahead and try few get commands of kubectl(Log file also has two commands )
@@ -79,7 +79,7 @@ Note: To make sure Terraform has deleted all the resources it has created using 
 Sreekar Achanta(sreekar.achanta07@gmail.com)
 
 
-Note: I've formed this repo by pulling the code and related configs from the original author and so I/author don't hold any responsibility for  any billing or any issues in your production clusters. Please use your discretion. 
+Note: I've formed this repo by pulling the code and related configs from the original author and so I/author don't hold any responsibility for  any billing issues or any issues in your environments. Please use your discretion. 
 
 ### Original Contributor
 

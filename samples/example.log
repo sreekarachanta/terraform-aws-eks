@@ -209,8 +209,8 @@ aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy: Creating...
 aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly: Creation complete after 2s [id=eks-node-group-20200703205341154300000002]
 aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy: Creation complete after 2s [id=eks-node-group-20200703205341149100000001]
 aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy: Creation complete after 2s [id=eks-node-group-20200703205341164100000003]
-aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Creation complete after 2s [id=eks-cluster-20200703205341179900000004]
-aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Creation complete after 2s [id=eks-cluster-20200703205341198500000005]
+aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Creation complete after 2s [id=eks-cluster-xxxxxxxxxxxxxxxxxx]
+aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Creation complete after 2s [id=eks-cluster-xxxxxxxxxxxxxx]
 aws_eks_cluster.eks_cluster: Creating...
 aws_eks_cluster.eks_cluster: Still creating... [10s elapsed]
 aws_eks_cluster.eks_cluster: Still creating... [20s elapsed]
@@ -293,14 +293,13 @@ Apply complete! Resources: 9 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-endpoint = https://63945C82C273BD559244201523BE89B9.yl4.ap-south-1.eks.amazonaws.com
-kubeconfig-certificate-authority-data = LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJd01EY3dNekl4TURFeE0xb1hEVE13TURjd01USXhNREV4TTFvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTFkzCk1WVFk0VjFPN29pYkJOTXFxN0ZJNi9TUXEzSzVIWThTbUFwdHVqR3YyN2c3NVFwdVBUZXpwSTdXdEdVTHlwencKQjNUMWdkOEZxR0dzaC9ncFZiT3ROVG0weExmb2FTdkVheVdDdkR2SUdPaTNGVStLZDNCTlRNZWR4dytGQlViTQpOS2NubGI3ZDZpTENwaHhLRmdMVTFCK0wwYmNFZXJmMG02dFB0R0h6QmhsNEplUkYzL2NFd3pGUG1mSUw5MDRPCkFSMGZQVThjMDhONm9iWExaRm15OG9CZlRmTnhPd0xTWXdtKzdTVlpjalg5MVV6VitESEVrS3cyRDkyeUYvR2YKQnVQeHlPejdSNjJmVjhxRHpGY2cyVUZsNjNZbTA4eExkdnRNS1g1bEt2NTI0Y3ZUYkRsR2cyMlBseGhlVXRKagoxNXJ5ZW8yM0RWVlhTeXZvdzZVQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFHUFV4ZGQzMjJRUjd5QmFjUWExUDNjandPRkwKWGF4MXlNZ1NMQU5hZ2ZqZFJ0MThUekRFeTduV202T0MrZE44cnovc3RadXFaalFTQmowaVJNMXFhcEx1VjJDego4QUtPS1N5M1pHVmpDN2l3NzZIbnBhVEIxTmVxL3RFMk4wZjZtUFUzMSswWXpCS245dVNQTHJKQXg4Y2I3YWhECkFrQ0djQXdrZDhQOWRaQU5RNzdWWEZGaHRKcDRTWHdZbUpYL2hXbWc3Uk00b01tWEVHekVicC9XR1lqUnU1Y2wKWUxKZW5CL25DMGtFT0N6NnpPREViM2lwYUtJdWVPUXl5UEttWGptT3FUQ1JBUi84emtDOHREaWFNZWl3NHVFSAo3UmZYMGNROHNLekdDaER4d0JOTjE4TWZXeXE0UkFybndoS0xMa2NGTS9VaXFBQ3pyeGlKVjFmQzJydz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
-
+endpoint = https://some-radon-number.yl4.ap-south-1.eks.amazonaws.com
+kubeconfig-certificate-authority-data = xxxxxxxxxxxxxxxxxxxx
 
 ### LOG for adding the cluster details in the kubeconfig file.
 
  ~/workspace/terraform-aws-eks: aws eks --region ap-south-1 update-kubeconfig --name eks-cluster
-Added new context arn:aws:eks:ap-south-1:392884643555:cluster/eks-cluster to /Users/sreekar/.kube/config
+Added new context arn:aws:eks:ap-south-1:xxxxxxxxxxx:cluster/eks-cluster to /Users/sreekar/.kube/config
  ~/workspace/terraform-aws-eks2 
  ~/workspace/terraform-aws-eks2 
  ~/workspace/terraform-aws-eks2 
@@ -339,8 +338,8 @@ aws_iam_role.cluster_role: Refreshing state... [id=eks-cluster]
 aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy: Refreshing state... [id=eks-node-group-20200703205341149100000001]
 aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly: Refreshing state... [id=eks-node-group-20200703205341154300000002]
 aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy: Refreshing state... [id=eks-node-group-20200703205341164100000003]
-aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Refreshing state... [id=eks-cluster-20200703205341198500000005]
-aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Refreshing state... [id=eks-cluster-20200703205341179900000004]
+aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Refreshing state... [id=eks-cluster-xxxxxxxxxxxxxx]
+aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Refreshing state... [id=eks-cluster-xxxxxxxxxxxxxxxxxx]
 aws_eks_cluster.eks_cluster: Refreshing state... [id=eks-cluster]
 aws_eks_node_group.node_group: Refreshing state... [id=eks-cluster:eks-node-group]
 
@@ -352,7 +351,7 @@ Terraform will perform the following actions:
 
   # aws_eks_cluster.eks_cluster will be destroyed
   - resource "aws_eks_cluster" "eks_cluster" {
-      - arn                       = "arn:aws:eks:ap-south-1:392884643555:cluster/eks-cluster" -> null
+      - arn                       = "arn:aws:eks:ap-south-1:xxxxxxxxxxx:cluster/eks-cluster" -> null
       - certificate_authority     = [
           - {
               - data = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJd01EY3dNekl4TURFeE0xb1hEVE13TURjd01USXhNREV4TTFvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTFkzCk1WVFk0VjFPN29pYkJOTXFxN0ZJNi9TUXEzSzVIWThTbUFwdHVqR3YyN2c3NVFwdVBUZXpwSTdXdEdVTHlwencKQjNUMWdkOEZxR0dzaC9ncFZiT3ROVG0weExmb2FTdkVheVdDdkR2SUdPaTNGVStLZDNCTlRNZWR4dytGQlViTQpOS2NubGI3ZDZpTENwaHhLRmdMVTFCK0wwYmNFZXJmMG02dFB0R0h6QmhsNEplUkYzL2NFd3pGUG1mSUw5MDRPCkFSMGZQVThjMDhONm9iWExaRm15OG9CZlRmTnhPd0xTWXdtKzdTVlpjalg5MVV6VitESEVrS3cyRDkyeUYvR2YKQnVQeHlPejdSNjJmVjhxRHpGY2cyVUZsNjNZbTA4eExkdnRNS1g1bEt2NTI0Y3ZUYkRsR2cyMlBseGhlVXRKagoxNXJ5ZW8yM0RWVlhTeXZvdzZVQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFHUFV4ZGQzMjJRUjd5QmFjUWExUDNjandPRkwKWGF4MXlNZ1NMQU5hZ2ZqZFJ0MThUekRFeTduV202T0MrZE44cnovc3RadXFaalFTQmowaVJNMXFhcEx1VjJDego4QUtPS1N5M1pHVmpDN2l3NzZIbnBhVEIxTmVxL3RFMk4wZjZtUFUzMSswWXpCS245dVNQTHJKQXg4Y2I3YWhECkFrQ0djQXdrZDhQOWRaQU5RNzdWWEZGaHRKcDRTWHdZbUpYL2hXbWc3Uk00b01tWEVHekVicC9XR1lqUnU1Y2wKWUxKZW5CL25DMGtFT0N6NnpPREViM2lwYUtJdWVPUXl5UEttWGptT3FUQ1JBUi84emtDOHREaWFNZWl3NHVFSAo3UmZYMGNROHNLekdDaER4d0JOTjE4TWZXeXE0UkFybndoS0xMa2NGTS9VaXFBQ3pyeGlKVjFmQzJydz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
@@ -373,7 +372,7 @@ Terraform will perform the following actions:
         ] -> null
       - name                      = "eks-cluster" -> null
       - platform_version          = "eks.2" -> null
-      - role_arn                  = "arn:aws:iam::392884643555:role/eks-cluster" -> null
+      - role_arn                  = "arn:aws:iam::xxxxxxxx:role/eks-cluster" -> null
       - status                    = "ACTIVE" -> null
       - tags                      = {
           - "test-esk" = "test"
@@ -399,7 +398,7 @@ Terraform will perform the following actions:
   # aws_eks_node_group.node_group will be destroyed
   - resource "aws_eks_node_group" "node_group" {
       - ami_type        = "AL2_x86_64" -> null
-      - arn             = "arn:aws:eks:ap-south-1:392884643555:nodegroup/eks-cluster/eks-node-group/82b98b3f-2301-ee9b-0696-942b353266de" -> null
+      - arn             = "arn:aws:eks:ap-south-1:xxxxxxxxxxx:nodegroup/eks-cluster/eks-node-group/82b98b3f-2301-ee9b-0696-942b353266de" -> null
       - cluster_name    = "eks-cluster" -> null
       - disk_size       = 40 -> null
       - id              = "eks-cluster:eks-node-group" -> null
@@ -408,7 +407,7 @@ Terraform will perform the following actions:
         ] -> null
       - labels          = {} -> null
       - node_group_name = "eks-node-group" -> null
-      - node_role_arn   = "arn:aws:iam::392884643555:role/eks-node-group" -> null
+      - node_role_arn   = "arn:aws:iam::xxxxxxxxxxxx:role/eks-node-group" -> null
       - release_version = "1.15.11-20200618" -> null
       - resources       = [
           - {
@@ -437,7 +436,7 @@ Terraform will perform the following actions:
 
   # aws_iam_role.cluster_role will be destroyed
   - resource "aws_iam_role" "cluster_role" {
-      - arn                   = "arn:aws:iam::392884643555:role/eks-cluster" -> null
+      - arn                   = "arn:aws:iam::xxxxxxxxxxx:role/eks-cluster" -> null
       - assume_role_policy    = jsonencode(
             {
               - Statement = [
@@ -464,7 +463,7 @@ Terraform will perform the following actions:
 
   # aws_iam_role.node_group_role will be destroyed
   - resource "aws_iam_role" "node_group_role" {
-      - arn                   = "arn:aws:iam::392884643555:role/eks-node-group" -> null
+      - arn                   = "arn:aws:iam::xxxxxxxxxxx:role/eks-node-group" -> null
       - assume_role_policy    = jsonencode(
             {
               - Statement = [
@@ -491,14 +490,14 @@ Terraform will perform the following actions:
 
   # aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy will be destroyed
   - resource "aws_iam_role_policy_attachment" "eks_AmazonEKSClusterPolicy" {
-      - id         = "eks-cluster-20200703205341198500000005" -> null
+      - id         = "eks-cluster-xxxxxxxxxxxxxx" -> null
       - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" -> null
       - role       = "eks-cluster" -> null
     }
 
   # aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy will be destroyed
   - resource "aws_iam_role_policy_attachment" "eks_AmazonEKSServicePolicy" {
-      - id         = "eks-cluster-20200703205341179900000004" -> null
+      - id         = "eks-cluster-xxxxxxxxxxxxxxxxxx" -> null
       - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy" -> null
       - role       = "eks-cluster" -> null
     }
@@ -567,8 +566,8 @@ aws_eks_cluster.eks_cluster: Still destroying... [id=eks-cluster, 20s elapsed]
 aws_eks_cluster.eks_cluster: Still destroying... [id=eks-cluster, 30s elapsed]
 aws_eks_cluster.eks_cluster: Still destroying... [id=eks-cluster, 40s elapsed]
 aws_eks_cluster.eks_cluster: Destruction complete after 44s
-aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Destroying... [id=eks-cluster-20200703205341179900000004]
-aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Destroying... [id=eks-cluster-20200703205341198500000005]
+aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Destroying... [id=eks-cluster-xxxxxxxxxxxxxxxxxx]
+aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Destroying... [id=eks-cluster-xxxxxxxxxxxxxx]
 aws_iam_role_policy_attachment.eks_AmazonEKSClusterPolicy: Destruction complete after 2s
 aws_iam_role_policy_attachment.eks_AmazonEKSServicePolicy: Destruction complete after 2s
 aws_iam_role.cluster_role: Destroying... [id=eks-cluster]
